@@ -1,5 +1,6 @@
 package com.example.personbook.domain.person;
 
+import com.example.personbook.core.exceptions.personbook.PersonBookException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class PersonController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<PersonDto> getPerson(@PathVariable("id") Long id) {
+    public ResponseEntity<PersonDto> getPerson(@PathVariable("id") Long id) throws PersonBookException {
         return new ResponseEntity<>(personService.getPersonById(id), HttpStatus.OK);
     }
 
@@ -52,12 +53,12 @@ public class PersonController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PersonDto> updatePerson(@RequestBody PersonDto personDTO, @PathVariable("id") Long id) {
+    public ResponseEntity<PersonDto> updatePerson(@RequestBody PersonDto personDTO, @PathVariable("id") Long id) throws PersonBookException {
         return new ResponseEntity<>(personService.modifyPerson(personDTO, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> removePerson(@PathVariable("id") Long id) {
+    public ResponseEntity<HttpStatus> removePerson(@PathVariable("id") Long id) throws PersonBookException {
         personService.deletePerson(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

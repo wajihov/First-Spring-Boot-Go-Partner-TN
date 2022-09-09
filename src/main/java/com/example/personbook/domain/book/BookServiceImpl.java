@@ -27,7 +27,7 @@ public class BookServiceImpl {
 
     }
 
-    public BookDto createBook(BookDto bookDTO) {
+    public BookDto createBook(BookDto bookDTO) throws PersonBookException {
 
         Long idPerson = bookDTO.getPersonId();
         /*if(idPerson==null){
@@ -39,12 +39,12 @@ public class BookServiceImpl {
         return bookMapper.toDTO(book);
     }
 
-    public BookDto findBookById(Long id) {
+    public BookDto findBookById(Long id) throws PersonBookException {
         Book book = getBookById(id);
         return bookMapper.toDTO(book);
     }
 
-    private Book getBookById(Long id) {
+    private Book getBookById(Long id) throws PersonBookException {
         if (id == null) {
             throw new PersonBookException(Codes.ERR_BOOK_NOT_FOUND);
         }
@@ -56,7 +56,7 @@ public class BookServiceImpl {
         return bookMapper.toDtos(books);
     }
 
-    public BookDto updateBook(BookDto bookDTO, Long id) {
+    public BookDto updateBook(BookDto bookDTO, Long id) throws PersonBookException {
         Long idPerson = bookDTO.getPersonId();
         if (idPerson == null) {
             throw new PersonBookException(Codes.ERR_BOOK_NOT_VALID);
@@ -77,7 +77,7 @@ public class BookServiceImpl {
         return bookMapper.toDTO(bookCurrent);
     }
 
-    public void deleteBook(Long id) {
+    public void deleteBook(Long id) throws PersonBookException {
         Book book = getBookById(id);
         bookRepository.delete(book);
     }

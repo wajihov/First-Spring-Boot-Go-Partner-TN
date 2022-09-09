@@ -29,7 +29,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonDto modifyPerson(PersonDto personDTO, Long id) {
+    public PersonDto modifyPerson(PersonDto personDTO, Long id) throws PersonBookException {
         Person personCurrent = personMapper.toEntity(getPersonById(id));
         Person personModify = personMapper.toEntity(personDTO);
         if (personModify.getName() != null) {
@@ -45,7 +45,7 @@ public class PersonServiceImpl implements PersonService {
         return personMapper.toDto(savedPerson);
     }
 
-    private Person findPersonById(Long id) {
+    private Person findPersonById(Long id) throws PersonBookException {
         if (id == null) {
             throw new PersonBookException(Codes.ERR_PERSON_NOT_EXIST);
         }
@@ -53,7 +53,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonDto getPersonById(Long id) {
+    public PersonDto getPersonById(Long id) throws PersonBookException {
         if (id == null) {
             log.error("l'id est null");
             throw new PersonBookException(Codes.ERR_PERSON_NOT_EXIST);
@@ -69,7 +69,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public void deletePerson(Long id) {
+    public void deletePerson(Long id) throws PersonBookException {
         Person person = findPersonById(id);
         personRepository.delete(person);
     }
