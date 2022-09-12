@@ -18,9 +18,9 @@ public class BookServiceImpl {
 
     private final BookRepository bookRepository;
     private final PersonRepository personRepository;
-    private final BookMapperImpl bookMapper;
+    private final BookMapper bookMapper;
 
-    public BookServiceImpl(BookRepository bookRepository, PersonRepository personRepository, BookMapperImpl bookMapper) {
+    public BookServiceImpl(BookRepository bookRepository, PersonRepository personRepository, BookMapper bookMapper) {
         this.bookRepository = bookRepository;
         this.personRepository = personRepository;
         this.bookMapper = bookMapper;
@@ -36,12 +36,12 @@ public class BookServiceImpl {
         Person person = personRepository.findById(idPerson).orElseThrow(() -> new PersonBookException(Codes.ERR_PERSON_NOT_FOUND));
         Book book = bookMapper.toEntity(person, bookDTO);
         book = bookRepository.save(book);
-        return bookMapper.toDTO(book);
+        return bookMapper.toDto(book);
     }
 
     public BookDto findBookById(Long id) throws PersonBookException {
         Book book = getBookById(id);
-        return bookMapper.toDTO(book);
+        return bookMapper.toDto(book);
     }
 
     private Book getBookById(Long id) throws PersonBookException {
@@ -74,7 +74,7 @@ public class BookServiceImpl {
             bookCurrent.setPerson(bookModify.getPerson());
         }
         bookCurrent = bookRepository.save(bookCurrent);
-        return bookMapper.toDTO(bookCurrent);
+        return bookMapper.toDto(bookCurrent);
     }
 
     public void deleteBook(Long id) throws PersonBookException {

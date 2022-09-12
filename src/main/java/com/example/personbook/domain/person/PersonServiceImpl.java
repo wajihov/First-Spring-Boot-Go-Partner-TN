@@ -11,24 +11,23 @@ import java.util.List;
 @Service
 @Slf4j
 @Transactional
-public class PersonServiceImpl implements PersonService {
+public class PersonServiceImpl {
 
     private final PersonRepository personRepository;
-    private final PersonMapperImpl personMapper;
+    private final PersonMapper personMapper;
 
-    public PersonServiceImpl(PersonRepository personRepository, PersonMapperImpl personMapper) {
+    public PersonServiceImpl(PersonRepository personRepository, PersonMapper personMapper) {
         this.personRepository = personRepository;
         this.personMapper = personMapper;
     }
 
-    @Override
+
     public PersonDto createPerson(PersonDto personDTO) {
         Person person = personMapper.toEntity(personDTO);
         person = personRepository.save(person);
         return personMapper.toDto(person);
     }
 
-    @Override
     public PersonDto modifyPerson(PersonDto personDTO, Long id) throws PersonBookException {
         Person personCurrent = personMapper.toEntity(getPersonById(id));
         Person personModify = personMapper.toEntity(personDTO);
@@ -52,7 +51,6 @@ public class PersonServiceImpl implements PersonService {
         return personRepository.findById(id).orElseThrow(() -> new PersonBookException(Codes.ERR_PERSON_NOT_FOUND));
     }
 
-    @Override
     public PersonDto getPersonById(Long id) throws PersonBookException {
         if (id == null) {
             log.error("l'id est null");
@@ -62,37 +60,31 @@ public class PersonServiceImpl implements PersonService {
         return personMapper.toDto(person);
     }
 
-    @Override
     public List<PersonDto> persons() {
         List<Person> personList = personRepository.findAll();
         return personMapper.toDtos(personList);
     }
 
-    @Override
     public void deletePerson(Long id) throws PersonBookException {
         Person person = findPersonById(id);
         personRepository.delete(person);
     }
 
-    @Override
     public List<PersonDto> findPersonContaining(String str) {
         List<Person> personList = personRepository.findByNameContaining(str);
         return personMapper.toDtos(personList);
     }
 
-    @Override
     public List<PersonDto> findPersonContains(String str) {
         List<Person> personList = personRepository.findByNameContains(str);
         return personMapper.toDtos(personList);
     }
 
-    @Override
     public List<PersonDto> findPersonLike(String str) {
         List<Person> personList = personRepository.findByNameLike(str);
         return personMapper.toDtos(personList);
     }
 
-    @Override
     public List<PersonDto> findPersonNameOrLastname(String str1, String str2) {
         List<Person> personList = personRepository.findByNameOrLastname(str1, str2);
         return personMapper.toDtos(personList);

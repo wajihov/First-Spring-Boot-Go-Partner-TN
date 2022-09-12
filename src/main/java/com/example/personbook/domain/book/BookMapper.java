@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class BookMapperImpl {
+public class BookMapper {
 
-    public BookDto toDTO(Book book) {
+    public BookDto toDto(Book book) {
         if (book == null) {
             return null;
         }
@@ -20,7 +20,6 @@ public class BookMapperImpl {
                 .nameBook(book.getNameBook())
                 .author(book.getAuthor())
                 .personId(book.getPerson().getId())
-                // .person(personMapper.toDto(book.getPerson()))
                 .build();
     }
 
@@ -32,13 +31,12 @@ public class BookMapperImpl {
                 .id(bookDTO.getId())
                 .nameBook(bookDTO.getNameBook())
                 .author(bookDTO.getAuthor())
-                // .person(this.toEntity(bookDTO.getPerson())
                 .person(person)
                 .build();
         return book;
     }
 
     public List<BookDto> toDtos(List<Book> listBook) {
-        return listBook.stream().map(this::toDTO).collect(Collectors.toList());
+        return listBook.stream().map(this::toDto).collect(Collectors.toList());
     }
 }

@@ -1,15 +1,19 @@
 package com.example.personbook.domain.person;
 
-import com.example.personbook.domain.book.BookMapperImpl;
+import com.example.personbook.domain.book.BookMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PersonMapperImpl {
+public class PersonMapper {
 
-    BookMapperImpl bookMapper = new BookMapperImpl();
+    private final BookMapper bookMapper;
+
+    public PersonMapper(BookMapper bookMapper) {
+        this.bookMapper = bookMapper;
+    }
 
     public PersonDto toDto(Person person) {
         if (person == null) {
