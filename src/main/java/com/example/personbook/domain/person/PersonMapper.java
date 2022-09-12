@@ -20,7 +20,6 @@ public class PersonMapperImpl {
                 .name(person.getName())
                 .lastname(person.getLastname())
                 .books(bookMapper.toDtos(person.getBooks()))
-                //.books(person.getBooks().stream().map(BookDto::fromEntity).collect(Collectors.toList()))
                 .build();
     }
 
@@ -34,8 +33,6 @@ public class PersonMapperImpl {
                 .name(personDTO.getName())
                 .lastname(personDTO.getLastname())
                 .build();
-
-        //book.setPerson(PersonDto.toEntity(bookDTO.getPerson()));
         return person;
     }
 
