@@ -11,12 +11,12 @@ import java.util.List;
 @Service
 @Slf4j
 @Transactional
-public class PersonServiceImpl {
+public class PersonService {
 
     private final PersonRepository personRepository;
     private final PersonMapper personMapper;
 
-    public PersonServiceImpl(PersonRepository personRepository, PersonMapper personMapper) {
+    public PersonService(PersonRepository personRepository, PersonMapper personMapper) {
         this.personRepository = personRepository;
         this.personMapper = personMapper;
     }

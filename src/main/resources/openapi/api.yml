@@ -1,0 +1,258 @@
+openapi: 3.0.2
+info:
+  title: api
+  version: 1.0.0
+paths:
+  /persons:
+    get:
+      tags:
+      - person
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PersonDto'
+          description: Get all persons
+        '404':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Get all persons
+      operationId: findAllPersons
+      summary: find all persons
+    post:
+      requestBody:
+        description: Get all persons
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonDto'
+        required: true
+      tags:
+      - person
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonDto'
+          description: Get all persons
+      operationId: createPerson
+      summary: Create Person
+  '/persons/{id}':
+    summary: Path used to manage a single PersonDto.
+    description: >-
+      The REST endpoint/path used to get, update, and delete single instances of an `PersonDto`.  This
+      path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete
+      tasks, respectively.
+    get:
+      tags:
+      - person
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonDto'
+          description: Successful response - returns a single `Person`.
+        '404':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Person Not Found
+      operationId: findPersonById
+      summary: Get a Person
+      description: Gets the details of a single instance of a `PersonDto`.
+    put:
+      requestBody:
+        description: Updated `PersonDto` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonDto'
+        required: true
+      tags:
+      - person
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonDto'
+          description: Successful response.
+      operationId: updatePerson
+      summary: Update a Person
+      description: Updates an existing `PersonDto`.
+    delete:
+      tags:
+      - person
+      responses:
+        '204':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonDto'
+          description: Successful response.
+      operationId: deletePerson
+      summary: Delete a Person
+      description: Deletes an existing `PersonDto`.
+    parameters:
+    -
+      name: id
+      description: A unique identifier for a `PersonDto`.
+      schema:
+        type: string
+      in: path
+      required: true
+  /books:
+    get:
+      tags:
+      - book
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/bookDto'
+          description: 'find all books '
+        '404':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Book Not Found
+      operationId: findBooks
+      summary: Find all books
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/bookDto'
+        required: true
+      tags:
+      - book
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bookDto'
+          description: Created book successflly
+      operationId: createBook
+      summary: Create a new Book
+  '/book/{id}':
+    summary: Path used to manage a single bookDto.
+    description: >-
+      The REST endpoint/path used to get, update, and delete single instances of an `bookDto`.  This
+      path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete
+      tasks, respectively.
+    get:
+      tags:
+      - book
+      parameters:
+      -
+        name: id
+        description: A unique identifier for a `bookDto`.
+        schema:
+          type: string
+        in: path
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bookDto'
+          description: get book by id
+        '404':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: get book by id
+      operationId: findBookById
+      summary: Get a book by id
+      description: Gets the details of a single instance of a `bookDto`.
+    put:
+      requestBody:
+        description: Updated `bookDto` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/bookDto'
+        required: true
+      tags:
+      - book
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bookDto'
+          description: Successful response.
+      operationId: updatebook
+      summary: Update a book
+      description: Updates an existing `bookDto`.
+    delete:
+      tags:
+      - book
+      responses:
+        '204':
+          content:
+            application/json:
+              schema:
+                type: boolean
+          description: Successful response.
+      operationId: deletebook
+      summary: Delete a book
+      description: Deletes an existing `bookDto`.
+    parameters:
+    -
+      name: id
+      description: A unique identifier for a `bookDto`.
+      schema:
+        type: string
+      in: path
+      required: true
+components:
+  schemas:
+    PersonDto:
+      title: Root Type for PersonDto
+      required:
+      - id
+      type: object
+      properties:
+        name:
+          type: string
+        lastname:
+          type: string
+        id:
+          format: int64
+          type: integer
+      example:
+        name: ahmed
+        lastname: bawandi
+    bookDto:
+      description: Book Dto
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          format: int64
+          type: integer
+        nameBook:
+          type: string
+        author:
+          type: string
+        id_person:
+          format: int64
+          type: integer

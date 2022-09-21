@@ -12,7 +12,6 @@ public class PersonBookExceptionHandler {
 
     @ExceptionHandler(value = PersonBookException.class)
     public ResponseEntity<ServerResponse> exception(PersonBookException ex) {
-
         ServerResponse serverResponse = ServerResponse
                 .builder()
                 .timeStamp(LocalDateTime.now())

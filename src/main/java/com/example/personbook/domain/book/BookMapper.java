@@ -13,8 +13,6 @@ public class BookMapper {
         if (book == null) {
             return null;
         }
-        //Person person = book.getPerson();
-
         return BookDto.builder()
                 .id(book.getId())
                 .nameBook(book.getNameBook())

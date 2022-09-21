@@ -23,7 +23,7 @@ public class Person {
     private String name;
     private String lastname;
 
-    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY,orphanRemoval = true)
+    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Book> books;
 
 }

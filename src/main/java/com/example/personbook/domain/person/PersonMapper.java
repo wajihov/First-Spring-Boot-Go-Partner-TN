@@ -40,8 +40,9 @@ public class PersonMapper {
         return person;
     }
 
-    public List<PersonDto> toDtos(List<Person> personList) {
-        return personList.stream().map(this::toDto).collect(Collectors.toList());
+    public List<PersonDto> toDtos(List<Person> persons) {
+
+        return persons.stream().map(this::toDto).collect(Collectors.toList());
     }
 
 
