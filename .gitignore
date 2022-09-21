@@ -23,7 +23,7 @@ mvnw.cmd
 .idea
 .mvn
 HELP.md
-.mvn/wrapper
+*.mvn/wrapper
 
 ### NetBeans ###
 /nbproject/private/
